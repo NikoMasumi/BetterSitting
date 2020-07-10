@@ -100,13 +100,13 @@ class BetterSitting extends PluginBase implements Listener{
         //Get the blocks in the configuration file to check if they're worth sitting on (in form of array)
         //Each line breaks represents a separate ID.
         $sittableBlocks = explode('\n', file_get_contents($this->getDataFolder()."blocks/".strtolower("sit_on_these.blocks")));
-        $specialSuffix = '$$'; //Indicates a special block. Ex: 123$$
+        $specialSuffix = '!!'; //Indicates a special block. Ex: 123!!
         
         //Get ID of interacted block and check if it is available - as a normal block or as a special.
         $sitOn = $event->getBlock()->getId();
         
         if (!in_array(strval($siton), $sittableBlocks)) {
-            if(!in_array(strval($siton)."$$", $sittableBlocks)) {
+            if(!in_array(strval($siton).$specialsuffix, $sittableBlocks)) {
                 return null;
             } else {
                 $hasPerms = ($player->hasPermission("bettersit.op.sitonspecialblocks"));
